@@ -1,3 +1,5 @@
+import { writable, get } from 'svelte/store';
+
 export class FieldNodeCollection {
     /**
      * @param {int} rows - Total rows of the current collection
@@ -41,8 +43,25 @@ export class FieldNodeCollection {
     _createFieldNodes() {
         for (let i = 0; i < this.columns; i++) {
             for (let j = 0; j < this.rows; j++) {
-                this.fieldNodes.push({row: i, column: j});
+                this.fieldNodes.push(new FieldNode(i, j));
             }
         }
+    }
+}
+
+class FieldNode {
+    constructor(row, column) {
+        this.row = row;
+        this.column = column;
+
+        this._tower = writable();
+    }
+
+    setTower(tower) {
+        this._tower.set(tower);
+    }
+
+    getTower() {
+        return get(this._tower);
     }
 }

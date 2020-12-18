@@ -27,6 +27,14 @@
         }
 
         context.strokeRect(dx, dy, width, height);
+
+        if (fieldNode.getTower()) {
+            context.strokeStyle = "#000";
+
+            context.beginPath();
+            context.arc(dx + (width / 2), dy  + (width / 2), width / 4, 0, 2 * Math.PI);
+            context.stroke();
+        }
     }
 </script>
 
