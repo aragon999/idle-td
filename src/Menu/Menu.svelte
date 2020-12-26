@@ -2,21 +2,21 @@
     import { stateStore } from '../Stores/state_store.js';
 
     let activeMenu = 'none';
-    let activeField = null;
+    let pickedNode = null;
 
-    const watch = stateStore.subscribe(value => {
-        if (value['activeMenu'] !== activeMenu) {
-            activeMenu = value['activeMenu'];
+    const watch = stateStore.subscribe(s => {
+        if (s['activeMenu'] !== activeMenu) {
+            activeMenu = s['activeMenu'];
         }
 
-        activeField = value['activeField'];
+        pickedNode = s['pickedNode'];
     });
 
     function handleCloseMenuClick () {
         stateStore.update(function (s) {
            s['activeMenu'] = 'none';
-           s['activeField']['row'] = null;
-           s['activeField']['column'] = null;
+           s['pickedNode']['row'] = null;
+           s['pickedNode']['column'] = null;
            return s;
        });
     }
@@ -26,7 +26,7 @@
 
 <div class="menu">
     {#if activeMenu === 'build'}
-        <BuildMenu row={activeField['row']} column={activeField['column']} />
+        <BuildMenu row={pickedNode['row']} column={pickedNode['column']} />
     {:else}
         Kein Menü
     {/if}

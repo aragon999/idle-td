@@ -4,7 +4,7 @@
 </script>
 
 <main>
-    <Field height={20} width={20} />
+    <Field rows={20} cols={20} />
 
     <Menu />
 </main>
