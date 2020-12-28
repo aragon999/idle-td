@@ -6,25 +6,20 @@
     import { Canvas } from "svelte-canvas";
     import { stateStore } from '../Stores/state_store.js';
     import { FieldNodeCollection } from '../Core/Field/FieldNodeCollection.js';
-
-    export let cols,
-               rows;
+    import { getContext } from 'svelte';
 
     const nodeWidth = 20,
           nodeHeight = 20;
 
-    // Take the border of each cell into account
-    const width = cols * nodeWidth,
-          height = rows * nodeHeight;
+    const game = getContext('game');
+
+    const width = game.columns * nodeWidth,
+          height = game.rows * nodeHeight;
 
     let selected = {
         'row': null,
         'column': null
     }, picked = selected;
-
-    const nodeCollection = new FieldNodeCollection(rows, cols);
-
-    stateStore.updateValue('nodeCollection', nodeCollection);
 
     const watch = stateStore.subscribe(s => {
         if (!s['pickedNode']) {
@@ -48,8 +43,8 @@
 
 <Canvas width={width} height={height}
         on:mousemove={({ clientX: x, clientY: y }) => {
-            selected['row'] = Math.min(parseInt(y / nodeHeight, 10), rows - 1);
-            selected['column'] = Math.min(parseInt(x / nodeWidth, 10), cols - 1);
+            selected['row'] = Math.min(parseInt(y / nodeHeight, 10), game.rows - 1);
+            selected['column'] = Math.min(parseInt(x / nodeWidth, 10), game.columns - 1);
         }}
         on:mouseout={() => selected['row'] = selected['column'] = null}
         on:mousedown={() => {
@@ -64,13 +59,14 @@
             });
         }}
     >
-    {#each nodeCollection.getFieldNodes() as fieldNode, i}
+    {#each game.fieldNodeCollection.getFieldNodes() as { row, column }, i}
         <FieldNode
             width={nodeWidth}
             height={nodeHeight}
-            fieldNode={fieldNode}
-            selected={selected['row'] === fieldNode['row'] && selected['column'] === fieldNode['column']}
-            picked={picked['row'] === fieldNode['row'] && picked['column'] === fieldNode['column']}
+            row={row}
+            column={column}
+            selected={selected['row'] === row && selected['column'] === column}
+            picked={picked['row'] === row && picked['column'] === column}
             background={background}
         />
     {/each}

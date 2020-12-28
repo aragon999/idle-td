@@ -22,13 +22,21 @@ export class FieldNodeCollection {
      * @return {(FieldNode|null)}
      */
     getFieldNode(row, column) {
-        const idx = (row * this.columns) + column;
+        const idx = this.getFieldNodeIndex(row, column);
 
         if (idx < 0 || idx >= this.columns * this.rows) {
             return null;
         }
 
+        return this.getFieldNodeByIndex(idx);
+    }
+
+    getFieldNodeByIndex(idx) {
         return this.fieldNodes[idx];
+    }
+
+    getFieldNodeIndex(row, column) {
+        return (row * this.columns) + column;
     }
 
     /**

@@ -1,19 +1,14 @@
 <script>
     import { stateStore } from '../Stores/state_store.js';
+    import { getContext } from 'svelte';
 
     export let row;
     export let column;
 
+    const game = getContext('game');
+
     function handleCreateTower() {
-        stateStore.update(s => {
-            const fieldNode = s['nodeCollection'].getFieldNode(row, column);
-
-            if (fieldNode) {
-                fieldNode.setTower('test');
-            }
-
-            return s;
-        });
+        game.buildTower(row, column);
     }
 </script>
 

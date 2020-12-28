@@ -1,16 +1,25 @@
 <script>
     import { Layer } from "svelte-canvas";
+    import { getContext } from 'svelte';
 
     export let selected = false;
     export let picked = false;
+    export let row;
+    export let column;
     export let width;
     export let height;
-    export let fieldNode;
     export let background;
 
+    const game = getContext('game');
+    const fieldNodeIdx = game.fieldNodeCollection.getFieldNodeIndex(row, column);
+
+    let fieldNode;
+
     $: render = ({ context }) => {
-        const dx = fieldNode['column'] * width,
-              dy = fieldNode['row'] * height;
+        const dx = column * width,
+              dy = row * height;
+
+        fieldNode = game.fieldNodeCollection.getFieldNodeByIndex(fieldNodeIdx);
 
         if (background.complete) {
             context.drawImage(background, dx, dy, width, height);
