@@ -2,6 +2,7 @@
     import FieldNode from './FieldNode.svelte';
     import MinionSource from '../Minions/MinionSource.svelte';
     import MinionSink from '../Minions/MinionSink.svelte';
+    import FPS from '../Game/FPS.svelte';
     import { Canvas } from "svelte-canvas";
     import { stateStore } from '../Stores/state_store.js';
     import { FieldNodeCollection } from '../Core/Field/FieldNodeCollection.js';
@@ -76,4 +77,6 @@
 
     <MinionSource row=3 column=5 nodeWidth={nodeWidth} nodeHeight={nodeHeight} />
     <MinionSink row=16 column=14 nodeWidth={nodeWidth} nodeHeight={nodeHeight} />
+
+    <FPS />
 </Canvas>
