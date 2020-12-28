@@ -2,7 +2,7 @@
     import FieldNode from './FieldNode.svelte';
     import { Canvas } from "svelte-canvas";
     import { stateStore } from '../Stores/state_store.js';
-    import { FieldNodeCollection } from './classes.js';
+    import { FieldNodeCollection } from '../Core/Field/FieldNodeCollection.js';
 
     export let cols,
                rows;

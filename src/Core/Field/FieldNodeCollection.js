@@ -1,4 +1,4 @@
-import { writable, get } from 'svelte/store';
+import { FieldNode } from './FieldNode.js';
 
 export class FieldNodeCollection {
     /**
@@ -46,22 +46,5 @@ export class FieldNodeCollection {
                 this.fieldNodes.push(new FieldNode(i, j));
             }
         }
-    }
-}
-
-class FieldNode {
-    constructor(row, column) {
-        this.row = row;
-        this.column = column;
-
-        this._tower = writable();
-    }
-
-    setTower(tower) {
-        this._tower.set(tower);
-    }
-
-    getTower() {
-        return get(this._tower);
     }
 }
