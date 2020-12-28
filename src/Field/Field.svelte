@@ -38,7 +38,7 @@
     });
 
     const background = new Image();
-    background.src = "../../gfx/field.png";
+    background.src = "gfx/field.png";
 </script>
 
 <Canvas width={width} height={height}
