@@ -5,7 +5,7 @@
     import Menu from './Menu/Menu.svelte';
     import { Game } from './Core/Game.js';
 
-    const game = new Game(20, 20);
+    const game = new Game(20, 20, {'row': 4, 'column': 3}, {'row': 13, 'column': 17});
 
     setContext('game', game);
 </script>

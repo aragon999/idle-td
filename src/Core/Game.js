@@ -1,10 +1,13 @@
 import { FieldNodeCollection } from './Field/FieldNodeCollection.js';
 
 export class Game {
-    constructor(rows, columns) {
+    constructor(rows, columns, minionSource, minionSink) {
         this.rows = rows;
         this.columns = columns;
         this.fieldNodeCollection = new FieldNodeCollection(this.rows, this.columns);
+
+        this.minionSource = minionSource;
+        this.minionSink = minionSink;
     }
 
     buildTower(row, column, towerType='test') {

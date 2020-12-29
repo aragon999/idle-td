@@ -71,8 +71,8 @@
         />
     {/each}
 
-    <MinionSource row=3 column=5 nodeWidth={nodeWidth} nodeHeight={nodeHeight} />
-    <MinionSink row=16 column=14 nodeWidth={nodeWidth} nodeHeight={nodeHeight} />
+    <MinionSource row={game['minionSource']['row']} column={game['minionSource']['column']} nodeWidth={nodeWidth} nodeHeight={nodeHeight} />
+    <MinionSink row={game['minionSink']['row']} column={game['minionSink']['column']} nodeWidth={nodeWidth} nodeHeight={nodeHeight} />
 
     <FPS />
 </Canvas>
