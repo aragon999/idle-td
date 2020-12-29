@@ -9,7 +9,10 @@ export class Game {
         this.minionSource = minionSource;
         this.minionSink = minionSink;
 
-        this.occupiedNodes = Array(rows).fill(Array(rows).fill(false));
+        this.occupiedNodes = Array(rows);
+        for (let i = 0; i < rows; i++) {
+            this.occupiedNodes[i] = Array(columns).fill(false);
+        }
 
         this.computePath();
     }
@@ -24,6 +27,7 @@ export class Game {
 
         fieldNode.setTower(towerType);
         this.occupiedNodes[row][column] = true;
+        this.computePath();
     }
 
     computePath() {
@@ -33,22 +37,33 @@ export class Game {
         let step = source;
         const path = [{...this.minionSource}];
 
-        const xDir = (source['column'] > sink['column']) ? 1 : -1;
-        const yDir = (source['row'] > sink['row']) ? 1 : -1;
+        // TODO: There are still several cases where no path can be found, this is currently not covered,
+        //       some kind of backward walking of the current path and removing elements
+        let stepCounter = 0;
+        while (step['row'] !== sink['row'] && step['column'] !== sink['column'] && stepCounter < 1000) {
+            let smallestDistance = null,
+                smallestStep = null,
+                currentDistance = null;
 
-        while (step['row'] !== sink['row'] && step['column'] !== sink['column']) {
-            let distance1 = this.getDistance({'row': step['row'] + 1, 'column': step['column']}, sink);
-            let distance2 = this.getDistance({'row': step['row'], 'column': step['column'] + 1}, sink);
+            // Iterate over all 4 possible directions and find the smallest distance
+            for (let i = 0; i < 4; i++) {
+                const currentStep = this.getStep(step, i);
+                currentDistance = this.getDistance(currentStep, sink);
 
-            // TODO: Implement forward and backward possibility
-            // TODO: Implement occupied nodes (i.e. towers, minions source/sink)
-            if (distance1 < distance2) {
-                step['row'] += 1; //step['row'] + xDir;  // TODO: This crashs the FPS, why? constants seem to work
-            } else {
-                step['column'] += 1; //step['column'] + yDir;
+                if (!this.occupiedNodes[currentStep['row']][currentStep['column']] && (!smallestDistance || currentDistance < smallestDistance)) {
+                    smallestStep = {...currentStep};
+                    smallestDistance = currentDistance;
+                }
             }
 
-            path.push({...step});
+            if (!smallestStep) {
+                throw `Cannot find path at step {row = ${step['row']}, column = ${step['column']}}`;
+            }
+
+            path.push({...smallestStep});
+            step = smallestStep;
+
+            stepCounter += 1;
         }
 
         path.push({...this.minionSink});
@@ -58,5 +73,19 @@ export class Game {
 
     getDistance(a, b) {
         return Math.sqrt(Math.abs(a['row'] - b['row'])**2 + Math.abs(a['column'] - b['column'])**2)
+    }
+
+    getStep(currentPosition, direction) {
+        if (direction === 0) {  // right
+            return {'row': currentPosition['row'] + 1, 'column': currentPosition['column']};
+        } else if (direction === 1) {  // bottom
+            return {'row': currentPosition['row'], 'column': currentPosition['column'] + 1};
+        } else if (direction === 2) {  // left
+            return {'row': currentPosition['row'] - 1, 'column': currentPosition['column']};
+        } else if (direction === 3) { // top
+            return {'row': currentPosition['row'], 'column': currentPosition['column'] - 1};
+        }
+
+        throw `Cannot find step for direction ${direction}`;
     }
 }
