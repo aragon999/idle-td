@@ -25,6 +25,11 @@ export class Game {
             return;
         }
 
+        // TODO: Handle already built tower, menu should actually not be visible
+        if (this.occupiedNodes[row][column]) {
+            return;
+        }
+
         fieldNode.setTower(towerType);
         this.occupiedNodes[row][column] = true;
         this.computePath();
