@@ -1,8 +1,12 @@
 <script>
     import { stateStore } from '../Stores/state_store.js';
+    import BuildMenu from './BuildMenu.svelte';
+    import { getContext } from 'svelte';
 
     let activeMenu = 'none';
     let pickedNode = null;
+
+    const game = getContext('game');
 
     const watch = stateStore.subscribe(s => {
         if (s['activeMenu'] !== activeMenu) {
@@ -21,7 +25,9 @@
        });
     }
 
-    import BuildMenu from './BuildMenu.svelte';
+    function handleCreateMinion () {
+        game.minionCollection.createMinion('test');
+    }
 </script>
 
 <div class="menu">
@@ -29,6 +35,7 @@
         <BuildMenu row={pickedNode['row']} column={pickedNode['column']} />
     {:else}
         Kein Menü
+        <button on:mousedown={handleCreateMinion}>Minion erstellen</button>
     {/if}
 
     {#if activeMenu !== 'none'}

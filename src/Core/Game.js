@@ -1,4 +1,5 @@
 import { FieldNodeCollection } from './Field/FieldNodeCollection.js';
+import { MinionCollection } from './Minion/MinionCollection.js';
 
 export class Game {
     constructor(rows, columns, minionSource, minionSink) {
@@ -11,6 +12,7 @@ export class Game {
 
         this.minionSource = minionSource;
         this.minionSink = minionSink;
+        this.minionCollection = new MinionCollection(this.minionSource, this.minionSink);
 
         this.occupiedNodes = Array(rows);
         for (let i = 0; i < rows; i++) {
@@ -77,6 +79,9 @@ export class Game {
         path.push({...this.minionSink});
 
         this.path = path;
+        this.minionCollection.path = path.map(step =>
+            ({'dx': step['row'] * this.nodeHeight, 'dy': step['column'] * this.nodeWidth})
+        );
     }
 
     getDistance(a, b) {

@@ -3,6 +3,7 @@
     import MinionSource from '../Minions/MinionSource.svelte';
     import MinionPath from './MinionPath.svelte';
     import MinionSink from '../Minions/MinionSink.svelte';
+    import MinionLayer from '../Minions/MinionLayer.svelte';
     import FPS from '../Game/FPS.svelte';
     import { Canvas } from "svelte-canvas";
     import { stateStore } from '../Stores/state_store.js';
@@ -74,6 +75,8 @@
 
     <MinionSource row={game['minionSource']['row']} column={game['minionSource']['column']} nodeWidth={nodeWidth} nodeHeight={nodeHeight} />
     <MinionSink row={game['minionSink']['row']} column={game['minionSink']['column']} nodeWidth={nodeWidth} nodeHeight={nodeHeight} />
+
+    <MinionLayer />
 
     <MinionPath />
 
