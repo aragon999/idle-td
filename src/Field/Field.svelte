@@ -9,11 +9,11 @@
     import { FieldNodeCollection } from '../Core/Field/FieldNodeCollection.js';
     import { getContext } from 'svelte';
 
-    const nodeWidth = 20,
-          nodeHeight = 20;
 
     const game = getContext('game');
 
+    const nodeWidth = game['nodeWidth'],
+          nodeHeight = game['nodeHeight'];
     const width = game.columns * nodeWidth,
           height = game.rows * nodeHeight;
 

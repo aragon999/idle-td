@@ -2,6 +2,9 @@ import { FieldNodeCollection } from './Field/FieldNodeCollection.js';
 
 export class Game {
     constructor(rows, columns, minionSource, minionSink) {
+        this.nodeWidth = 20;
+        this.nodeHeight = 20;
+
         this.rows = rows;
         this.columns = columns;
         this.fieldNodeCollection = new FieldNodeCollection(this.rows, this.columns);
