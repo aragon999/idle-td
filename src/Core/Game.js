@@ -80,7 +80,7 @@ export class Game {
 
         this.path = path;
         this.minionCollection.path = path.map(step =>
-            ({'dx': step['row'] * this.nodeHeight, 'dy': step['column'] * this.nodeWidth})
+            ({'dx': step['column'] * this.nodeWidth, 'dy': step['row'] * this.nodeHeight})
         );
     }
 

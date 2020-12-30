@@ -30,6 +30,11 @@ export class MinionCollection {
         this.minions.update(function (s) {
             s.forEach((minion) => {
                 minion.update(path[minion['waypointIdx']]);
+
+                // Current workaround for non working path
+                if (minion['waypointIdx'] >= path.length) {
+                    minion['waypointIdx'] = path.length - 1;
+                }
             });
 
             return s;
