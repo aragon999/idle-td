@@ -17,9 +17,6 @@
 
         context.stroke();
     };
-
-    // TODO: Why does it not work, when it is specified directly at the attribute
-    let priority = 5;
 </script>
 
-<Layer render={render} priority={priority} />
+<Layer render={render} priority={5} />
