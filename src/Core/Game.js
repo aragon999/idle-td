@@ -1,5 +1,6 @@
 import { FieldNodeCollection } from './Field/FieldNodeCollection.js';
 import { MinionCollection } from './Minion/MinionCollection.js';
+import { Vector } from './Math/Vector.js';
 
 export class Game {
     constructor(rows, columns, minionSource, minionSink) {
@@ -80,7 +81,7 @@ export class Game {
 
         this.path = path;
         this.minionCollection.path = path.map(step =>
-            ({'dx': step['column'] * this.nodeWidth, 'dy': step['row'] * this.nodeHeight})
+            (new Vector({'dx': step['column'] * this.nodeWidth, 'dy': step['row'] * this.nodeHeight}))
         );
     }
 

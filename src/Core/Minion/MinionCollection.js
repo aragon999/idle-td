@@ -11,14 +11,11 @@ export class MinionCollection {
     }
 
     createMinion(minionType) {
-        const minionSource = this.minionSource;
+        const path = this.path;
 
         this.minions.update(function (s) {
             // TODO: Create different types
-            s.push(new Minion({
-                'dx': minionSource['column'] * 20,
-                'dy': minionSource['row'] * 20,
-            }));
+            s.push(new Minion(path));
 
             return s;
        });
@@ -29,12 +26,7 @@ export class MinionCollection {
 
         this.minions.update(function (s) {
             s.forEach((minion) => {
-                minion.update(path[minion['waypointIdx']]);
-
-                // Current workaround for non working path
-                if (minion['waypointIdx'] >= path.length) {
-                    minion['waypointIdx'] = path.length - 1;
-                }
+                minion.update();
             });
 
             return s;
