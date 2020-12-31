@@ -35,8 +35,9 @@
         <BuildMenu row={pickedNode['row']} column={pickedNode['column']} />
     {:else}
         Kein Menü
-        <button on:mousedown={handleCreateMinion}>Minion erstellen</button>
     {/if}
+
+    <button on:mousedown={handleCreateMinion}>Minion erstellen</button>
 
     {#if activeMenu !== 'none'}
         <span class="close-menu"
