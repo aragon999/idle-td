@@ -1,11 +1,12 @@
 import { Vector } from '../Math/Vector.js';
+import constants from '../constants.js';
 
 export class Minion {
     constructor(path) {
-        this.velocity = 1;
-        this.waypointIdx = 0;
-        this.shift = parseInt(Math.random() * 20, 10);
+        const randomInt = (mult) => parseInt(Math.random() * mult, 10);
 
+        this.waypointIdx = 0;
+        this.shift = new Vector({'dx': randomInt(constants.NODE_WIDTH), 'dy': randomInt(constants.NODE_HEIGHT)});
         this.path = [...path.map(waypoint => waypoint.clone().shift(this.shift) )];
         this.position = this.path[0].clone();
     }
@@ -20,15 +21,15 @@ export class Minion {
 
         const velocity = new Vector({'dx': 0, 'dy': 0});
         if (this.position['dx'] < waypoint['dx']) {
-            velocity['dx'] = 1;
+            velocity['dx'] = this.velocity;
         } else if (this.position['dx'] < waypoint['dx']) {
-            velocity['dx'] = -1;
+            velocity['dx'] = -this.velocity;
         }
 
         if (this.position['dy'] < waypoint['dy']) {
-            velocity['dy'] = 1;
+            velocity['dy'] = this.velocity;
         } else if (this.position['dy'] < waypoint['dy']) {
-            velocity['dy'] = -1;
+            velocity['dy'] = -this.velocity;
         }
 
         this.position.add(velocity);
@@ -42,7 +43,7 @@ export class Minion {
         }
     }
 
-    getVelocity() {
+    get velocity() {
         return 1;
     }
 }

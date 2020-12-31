@@ -19,8 +19,12 @@ export class Vector {
     }
 
     shift(offset) {
-        this.dx += offset;
-        this.dy += offset;
+        if (offset instanceof Vector) {
+            this.add(offset);
+        } else {
+            this.dx += offset;
+            this.dy += offset;
+        }
 
         return this;
     }

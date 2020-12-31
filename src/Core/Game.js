@@ -1,11 +1,12 @@
 import { FieldNodeCollection } from './Field/FieldNodeCollection.js';
 import { MinionCollection } from './Minion/MinionCollection.js';
 import { Vector } from './Math/Vector.js';
+import constants from './constants.js';
 
 export class Game {
     constructor(rows, columns, minionSource, minionSink) {
-        this.nodeWidth = 20;
-        this.nodeHeight = 20;
+        this.nodeWidth = constants.NODE_WIDTH;
+        this.nodeHeight = constants.NODE_HEIGHT;
 
         this.rows = rows;
         this.columns = columns;

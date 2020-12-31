@@ -2,10 +2,10 @@
     import { getContext } from 'svelte';
     import { Layer } from 'svelte-canvas';
 
-    const nodeWidth = 20,
-          nodeHeight = 20;
-
     const game = getContext('game');
+
+    const nodeWidth = game.nodeWidth,
+          nodeHeight = game.nodeHeight;
 
     $: render = ({ context }) => {
         context.strokeStyle = '#0f0'
