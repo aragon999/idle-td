@@ -14,7 +14,9 @@ export class Minion {
         // TODO: Currently this actually enables diagonal movement
         //       which is needed if the path cannot be found
         // TODO: Implement some rounding to enable non integer movement
-        const waypoint = this.path[this.waypointIdx];
+        // TODO: Rework the waypoint logic with some pop algorithm, in order to remove
+        //       the waypoint index stuff
+        const waypoint = this.path[this.waypointIdx] || this.path[this.path.length - 1];
 
         const velocity = new Vector({'dx': 0, 'dy': 0});
         if (this.position['dx'] < waypoint['dx']) {
