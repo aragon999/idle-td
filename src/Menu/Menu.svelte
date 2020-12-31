@@ -8,7 +8,7 @@
 
     const game = getContext('game');
 
-    const watch = stateStore.subscribe(s => {
+    stateStore.subscribe(s => {
         if (s['activeMenu'] !== activeMenu) {
             activeMenu = s['activeMenu'];
         }
@@ -18,11 +18,11 @@
 
     function handleCloseMenuClick () {
         stateStore.update(function (s) {
-           s['activeMenu'] = 'none';
-           s['pickedNode']['row'] = null;
-           s['pickedNode']['column'] = null;
-           return s;
-       });
+            s['activeMenu'] = 'none';
+            s['pickedNode']['row'] = null;
+            s['pickedNode']['column'] = null;
+            return s;
+        });
     }
 
     function handleCreateMinion () {

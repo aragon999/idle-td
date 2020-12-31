@@ -5,7 +5,7 @@
     const game = getContext('game');
 
     const nodeWidth = game.nodeWidth,
-          nodeHeight = game.nodeHeight;
+        nodeHeight = game.nodeHeight;
 
     $: render = ({ context }) => {
         context.strokeStyle = '#0f0'

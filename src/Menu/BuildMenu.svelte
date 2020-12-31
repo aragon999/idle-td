@@ -1,5 +1,4 @@
 <script>
-    import { stateStore } from '../Stores/state_store.js';
     import { getContext } from 'svelte';
 
     export let row;

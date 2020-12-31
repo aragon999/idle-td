@@ -18,12 +18,10 @@ export class MinionCollection {
             s.push(new Minion(path));
 
             return s;
-       });
+        });
     }
 
     update() {
-        const path = this.path;
-
         this.minions.update(function (s) {
             s.forEach((minion) => {
                 minion.update();

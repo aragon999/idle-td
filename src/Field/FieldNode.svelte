@@ -17,7 +17,7 @@
 
     $: render = ({ context }) => {
         const dx = column * width,
-              dy = row * height;
+            dy = row * height;
 
         fieldNode = game.fieldNodeCollection.getFieldNodeByIndex(fieldNodeIdx);
 

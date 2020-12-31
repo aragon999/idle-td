@@ -2,9 +2,9 @@
     import { Layer } from "svelte-canvas";
 
     export let dx, dy,
-               radius,
-               color,
-               priority;
+        radius,
+        color,
+        priority;
 
     $: render = ({ context }) => {
         context.fillStyle = color;

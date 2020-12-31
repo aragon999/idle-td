@@ -44,7 +44,7 @@ export class Game {
 
     computePath() {
         const source = {...this.minionSource},
-              sink = {...this.minionSink};
+            sink = {...this.minionSink};
 
         let step = source;
         const path = [{...this.minionSource}];

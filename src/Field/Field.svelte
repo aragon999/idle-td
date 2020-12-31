@@ -7,23 +7,21 @@
     import FPS from '../Game/FPS.svelte';
     import { Canvas } from "svelte-canvas";
     import { stateStore } from '../Stores/state_store.js';
-    import { FieldNodeCollection } from '../Core/Field/FieldNodeCollection.js';
     import { getContext } from 'svelte';
-
 
     const game = getContext('game');
 
     const nodeWidth = game['nodeWidth'],
-          nodeHeight = game['nodeHeight'];
+        nodeHeight = game['nodeHeight'];
     const width = game.columns * nodeWidth,
-          height = game.rows * nodeHeight;
+        height = game.rows * nodeHeight;
 
     let selected = {
-        'row': null,
-        'column': null
-    }, picked = selected;
+            'row': null,
+            'column': null
+        }, picked = selected;
 
-    const watch = stateStore.subscribe(s => {
+    stateStore.subscribe(s => {
         if (!s['pickedNode']) {
             picked['row'] = picked['column'] = null;
 

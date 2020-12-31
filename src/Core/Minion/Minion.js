@@ -40,14 +40,14 @@ export class Minion {
 
         if (this.position['dx'] < this.waypoint['dx']) {
             velocity['dx'] = this.baseVelocity;
-        } else if (this.position['dx'] < this.waypoint['dx']) {
+        } else if (this.position['dx'] > this.waypoint['dx']) {
             velocity['dx'] = -this.baseVelocity;
         }
 
 
         if (this.position['dy'] < this.waypoint['dy']) {
             velocity['dy'] = this.baseVelocity;
-        } else if (this.position['dy'] < this.waypoint['dy']) {
+        } else if (this.position['dy'] > this.waypoint['dy']) {
             velocity['dy'] = -this.baseVelocity;
         }
 

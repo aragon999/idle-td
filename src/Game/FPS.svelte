@@ -4,7 +4,6 @@
 
     let text = '';
 
-    let elapsed = 0;
     let frames = 0;
     let prevTime = $t;
 
