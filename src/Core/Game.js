@@ -1,3 +1,4 @@
+import { writable, get } from 'svelte/store';
 import { FieldNodeCollection } from './Field/FieldNodeCollection.js';
 import { MinionCollection } from './Minion/MinionCollection.js';
 import { Vector } from './Math/Vector.js';
@@ -21,6 +22,8 @@ export class Game {
             this.occupiedNodes[i] = Array(columns).fill(false);
         }
 
+        this.currentGold = writable(constants.START_GOLD);
+
         this.computePath();
     }
 
@@ -37,6 +40,12 @@ export class Game {
             return;
         }
 
+        const towerCost = 2;
+        if (get(this.currentGold) - towerCost < 0) {
+            return;
+        }
+
+        this.currentGold.update((currentGold) => currentGold -= towerCost);
         fieldNode.setTower(towerType);
         this.occupiedNodes[row][column] = true;
         this.computePath();

@@ -15,5 +15,5 @@
     Build Menu for {row} {column}
     <button
         on:mousedown={handleCreateTower}
-    >Create Tower</button>
+    >Create Tower (2)</button>
 </p>
