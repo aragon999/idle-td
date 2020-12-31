@@ -45,8 +45,8 @@
 
 <Canvas width={width} height={height}
         on:mousemove={({ clientX: x, clientY: y }) => {
-            selected['row'] = Math.min(parseInt(y / nodeHeight, 10), game.rows - 1);
-            selected['column'] = Math.min(parseInt(x / nodeWidth, 10), game.columns - 1);
+            selected['row'] = Math.min(parseInt(parseInt(y / nodeHeight, 10) - 0.5, 10), game.rows - 1);
+            selected['column'] = Math.min(parseInt(parseInt(x / nodeWidth, 10) + 0.5, 10), game.columns - 1);
         }}
         on:mouseout={() => selected['row'] = selected['column'] = null}
         on:mousedown={() => {
