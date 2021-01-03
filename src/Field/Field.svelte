@@ -46,10 +46,12 @@
         on:mousemove={({ clientX: x, clientY: y }) => {
             selected['row'] = Math.min(parseInt(parseInt(y / nodeHeight, 10) - 0.5, 10), game.rows - 1);
             selected['column'] = Math.min(parseInt(parseInt(x / nodeWidth, 10) + 0.5, 10), game.columns - 1);
+            game.setSelected({...selected});
         }}
         on:mouseout={() => selected['row'] = selected['column'] = null}
         on:mousedown={() => {
-            picked = selected;
+            picked = {...selected};
+            game.setPicked({...picked});
 
             stateStore.update(s => {
                 s['activeMenu'] = 'build';

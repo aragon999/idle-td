@@ -27,6 +27,8 @@ export class Game {
         this.currentGold = writable(constants.START_GOLD);
 
         this.computePath();
+        this.selected = {'row': null, 'column': null};
+        this.picked = {'row': null, 'column': null};
     }
 
     buildTower(row, column, towerType='test') {
@@ -47,6 +49,9 @@ export class Game {
         this.currentGold.update((currentGold) => currentGold -= towerCost);
         const tower = this.towerCollection.createTower(towerType, row, column);
         this.occupiedNodes[row][column] = tower;
+
+        this.setPicked({'row': row, 'column': column});
+
         this.computePath();
     }
 
@@ -110,5 +115,53 @@ export class Game {
         }
 
         throw `Cannot find step for direction ${direction}`;
+    }
+
+    setSelected(selected) {
+        const nodeStateChanged = this._updateNodeState(
+            this.getNodeContent(this.selected['row'], this.selected['column']),
+            this.getNodeContent(selected['row'], selected['column']),
+            'selected'
+        );
+
+        if (nodeStateChanged) {
+            this.selected = selected;
+        }
+    }
+
+    setPicked(picked) {
+        const nodeStateChanged = this._updateNodeState(
+            this.getNodeContent(this.picked['row'], this.picked['column']),
+            this.getNodeContent(picked['row'], picked['column']),
+            'picked'
+        );
+
+        if (nodeStateChanged) {
+            this.picked = picked;
+        }
+    }
+
+    _updateNodeState(oldNode, newNode, state) {
+        if (oldNode != newNode || (oldNode && oldNode[state] !== false) || (newNode && newNode[state] !== true)) {
+            if (oldNode) {
+                oldNode[state] = false;
+            }
+
+            if (newNode) {
+                newNode[state] = true;
+            }
+
+            return true;
+        }
+
+        return false;
+    }
+
+    getNodeContent(row, column) {
+        if (row === null || column === null) {
+            return false;
+        }
+
+        return this.occupiedNodes[row][column];
     }
 }

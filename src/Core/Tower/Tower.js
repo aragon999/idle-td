@@ -5,6 +5,8 @@ export class Tower {
         // Set the position to be the first step in the path
         this.position = position;
         this.level = 0;
+        this.selected = false;
+        this.picked = false;
     }
 
     update() {
@@ -20,6 +22,22 @@ export class Tower {
             context.beginPath();
             context.arc(position['dx'], position['dy'], constants.NODE_WIDTH / 4, 0, 2 * Math.PI);
             context.stroke();
+
+            if (this.selected || this.picked) {
+                context.strokeStyle = "#0ff";
+
+                context.beginPath();
+                context.arc(position['dx'], position['dy'], this.range, 0, 2 * Math.PI);
+                context.stroke();
+            }
+
+            if (this.picked) {
+                context.fillStyle = "rgba(0, 255, 255, 0.3)";
+
+                context.beginPath();
+                context.arc(position['dx'], position['dy'], this.range, 0, 2 * Math.PI);
+                context.fill();
+            }
         }
     }
 
