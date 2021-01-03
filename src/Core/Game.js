@@ -1,5 +1,6 @@
 import { writable, get } from 'svelte/store';
 import { FieldNodeCollection } from './Field/FieldNodeCollection.js';
+import { TowerCollection } from './Tower/TowerCollection.js';
 import { MinionCollection } from './Minion/MinionCollection.js';
 import { Vector } from './Math/Vector.js';
 import constants from './constants.js';
@@ -12,6 +13,7 @@ export class Game {
         this.rows = rows;
         this.columns = columns;
         this.fieldNodeCollection = new FieldNodeCollection(this.rows, this.columns);
+        this.towerCollection = new TowerCollection(this.rows, this.columns);
 
         this.minionSource = minionSource;
         this.minionSink = minionSink;
@@ -28,11 +30,8 @@ export class Game {
     }
 
     buildTower(row, column, towerType='test') {
-        const fieldNode = this.fieldNodeCollection.getFieldNode(row, column);
-
-        if (!fieldNode) {
-            // TODO: Handle not existing field node, maybe just do nothing?
-            return;
+        if ((row < 0 || row >= this.rows) || column < 0 || column >= this.columns) {
+            throw `row = ${row} and column = ${column} cannot be found`;
         }
 
         // TODO: Handle already built tower, menu should actually not be visible
@@ -46,8 +45,8 @@ export class Game {
         }
 
         this.currentGold.update((currentGold) => currentGold -= towerCost);
-        fieldNode.setTower(towerType);
-        this.occupiedNodes[row][column] = true;
+        const tower = this.towerCollection.createTower(towerType, row, column);
+        this.occupiedNodes[row][column] = tower;
         this.computePath();
     }
 
